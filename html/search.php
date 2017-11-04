@@ -2,7 +2,10 @@
   <body>
     <?php
     include 'resources.php';
-    $result = query($_POST["search_box"]);
+    $input = "\"%" . $_POST["search_box"] . "%\"";
+    $query = "SELECT * FROM business WHERE name LIKE  " . $input;
+    //Now you should be able to search a restaurant by name. --Shen
+    $result = query($query);
     printSqlResults($result);
     ?>
   </body>
