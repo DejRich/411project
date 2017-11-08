@@ -8,11 +8,12 @@
         $query = $_POST["search_box"];
     }
     else{
-        $query = "SELECT * FROM business WHERE name LIKE " . $input;
+        $query = "SELECT * FROM business WHERE name LIKE " . $input . "LIMIT 10";
     }
-    //Now you should be able to search a restaurant by name. --Shen
+    //Now you should be able to search a restaurant by name. -uery);
     $result = query($query);
-    printSqlResults($result);
+    //printSqlResults($result);
+    prettyPrintBusiness($result);
     ?>
   </body>
 </html>

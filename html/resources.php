@@ -1,6 +1,11 @@
 <?php
-$dbuser = "visitor";
-$dbpass = "Asdf1234!@#$";
+$visitorName = "visitor";
+$visitorPass = "Asdf1234!@#$";
+$userName = "user";
+$userPass = "$#@!4321fdsA";
+
+$dbuser = $visitorName;
+$dbpass = $visitorPass;
 $dbserver = "localhost";
 $dbname = "yelp_db";
 
@@ -20,11 +25,26 @@ function printSqlResults($result) {
     for ($i = 1; $row = $result->fetch_assoc(); $i++) {
       echo "$i<br>";
       foreach ($row as $key => $value) {
-        echo "&nbsp&nbsp&nbsp&nbsp$key: $value<br>";
+        echo "&nbsp&nbsp&nbsp$key: $value<br>";
       }
     }
   } else {
     echo "No results<br>";
   }
+}
+
+function prettyPrintBusiness($res) {
+    while($row = $res->fetch_assoc()){
+        echo "<h2>" . $row["name"] . "</h2>";
+        echo "<p>Address: " . $row["address"] . "</p>";
+        echo "<p>Stars: " . $row["stars"] . "</p>";
+        echo "<hr>";
+    }
+
+
+}
+function login($email,$password) {
+    $result = query("SELECT * FROM user WHERE email IS NOT NULL AND password IS NOT NULL AND email = \"" . $email . "\" AND password = " . $password . "\"");
+    printSqlResults($result);
 }
 ?>
