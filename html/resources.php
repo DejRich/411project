@@ -36,10 +36,11 @@ function printSqlResults($result) {
 
 function prettyPrintBusiness($res) {
     while($row = $res->fetch_assoc()){
-        echo "<h2>" . $row["name"] . "</h2>";
-        echo "<p>Address: " . $row["address"] . "</p>";
-        echo "<p>Stars: " . $row["stars"] . "</p>";
-        echo "<hr>";
+        ?>
+        <h2> <a href="resturant.php?id=<?= $row["id"]?>" ><?= $row["name"]?></a> </h2>
+        <p>Stars: <?= $row["stars"] ?> <p>
+        <hr>
+        <?php
     }
 
 
