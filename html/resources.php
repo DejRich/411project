@@ -33,6 +33,7 @@ function printSqlResults($result) {
   }
 }
 
+
 function prettyPrintBusiness($res) {
     while($row = $res->fetch_assoc()){
         echo "<h2>" . $row["name"] . "</h2>";
@@ -43,8 +44,24 @@ function prettyPrintBusiness($res) {
 
 
 }
+
+
 function login($email,$password) {
-    $result = query("SELECT * FROM user WHERE email IS NOT NULL AND password IS NOT NULL AND email = \"" . $email . "\" AND password = " . $password . "\"");
-    printSqlResults($result);
+    $result = query("SELECT * FROM user WHERE email IS NOT NULL AND password IS NOT NULL AND email = \"" . $email . "\" AND password = \"" . $password . "\"");
+    if ($result->num_rows != 0) {
+        $GLOBALS['dbuser'] = $GLOBALS['userName'];
+        $GLOBALS['dbpass'] = $GLOBALS['userPass'];
+        return True;
+    }
+    return False;
+}
+
+function logout() {
+    $GLOBALS['dbuser'] = $GLOBALS['visitorName'];
+    $GLOBALS['dbpass'] = $GLOBALS['visitorPass'];
+}
+
+function loggedIn() {
+    return $GLOBALS['dbuser'] != $GLOBALS['visitorName'];
 }
 ?>
