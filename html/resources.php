@@ -19,6 +19,15 @@ function query($query) {
   return $conn->query($query);
 }
 
+function update($query) {
+  // connect
+  $conn = new mysqli($GLOBALS['dbserver'], 'syang104', 'CS411$Project', $GLOBALS['dbname']);
+  if ($conn->connect_error) {
+    dir("Connection failed: " . $conn->connect_error);
+  }
+  return $conn->query($query);
+}
+
 
 function printSqlResults($result) {
   if ($result->num_rows > 0) {
