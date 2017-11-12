@@ -20,12 +20,12 @@ function query($query) {
 }
 
 function update($query) {
-  // connect
+  // update using superuser, need update later
   $conn = new mysqli($GLOBALS['dbserver'], 'syang104', 'CS411$Project', $GLOBALS['dbname']);
   if ($conn->connect_error) {
     dir("Connection failed: " . $conn->connect_error);
   }
-  if ($conn->query($sql) === TRUE) {
+  if ($conn->query($query) === TRUE) {
     echo "Record updated successfully";
 } else {
     echo "Error updating record: " . $conn->error;
