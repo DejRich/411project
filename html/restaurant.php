@@ -11,9 +11,15 @@
 
     <h2> <?= $row["name"] ?> </h2>
     <p>Stars: <?= $row["stars"] ?> </p>
-    <p>Address: <?= $row["address"] ?>, <?= $row["city"] ?>, <?= $row["state"] ?></p>
+    <p>Address: <?= $row["address"] ?></p>
+    <p>City: <?= $row["city"] ?></p>
+    <p>State: <?= $row["state"] ?></p>
+    <?php
+        
+        ?>
     
-    <hr>
+    
+    <br>
     <h4>Reviews:</h4>
     
     <?php
@@ -22,8 +28,13 @@
     while($row = $res->fetch_assoc()){
         ?>
         <hr>
-        <h4><?= $row["name"] ?> StarsL <?= $row["star"] ?> Date: <?= $row["date"] ?></h4>
+        <h4><?= $row["name"] ?></h4>
+        <h5>Stars: <?= $row["stars"] ?></h5> 
+        <h5>Date: <?= $row["date"] ?></h5>
         <p><?= $row["text"] ?></p>
+        <form action="update_review.php?id=<?= $row["id"] ?>">
+            <input type="submit" value="Update Review">
+        </form>
        <?php 
     }
         ?>
