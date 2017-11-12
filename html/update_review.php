@@ -2,14 +2,13 @@
     <body>
         <?php
         include 'resources.php';
-        function updateReview(){
         $id = $_GET["id"];
         $query = "SELECT * FROM review WHERE id=\"" . $id . "\"";
         $res = query($query);
         $row = $res->fetch_assoc();
         ?>
 
-        <form action="" method="get">
+        <form action="update_review_next.php" method="get">
             Review:<br>
             <textarea name="text" rows="10" cols="70"><?= $row["text"] ?></textarea>
             <input type=hidden name="id" value=<?=$id?> >
