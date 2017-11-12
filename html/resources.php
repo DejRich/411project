@@ -25,7 +25,11 @@ function update($query) {
   if ($conn->connect_error) {
     dir("Connection failed: " . $conn->connect_error);
   }
-  return $conn->query($query);
+  if ($conn->query($sql) === TRUE) {
+    echo "Record updated successfully";
+} else {
+    echo "Error updating record: " . $conn->error;
+}
 }
 
 
