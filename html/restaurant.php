@@ -32,7 +32,8 @@
         <h5>Stars: <?= $row["stars"] ?></h5> 
         <h5>Date: <?= $row["date"] ?></h5>
         <p><?= $row["text"] ?></p>
-        <form action="update_review.php?id=<?= $row["id"] ?>">
+        <form action="update_review.php" method="get">
+            <input type=hidden name="id" value=<?= $row["id"] ?>>
             <input type="submit" value="Update Review">
         </form>
        <?php 
