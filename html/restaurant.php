@@ -23,7 +23,7 @@
     <h4>Reviews:</h4>
     
     <?php
-    $query = "SELECT * FROM review, user u WHERE user_id = u.id AND business_id=\"" . $id . "\"";
+    $query = "SELECT * FROM review r, user u WHERE r.user_id = u.id AND r.business_id=\"" . $id . "\"";
     $res = query($query);
     while($row = $res->fetch_assoc()){
         ?>
@@ -32,7 +32,7 @@
         <h5>Stars: <?= $row["stars"] ?></h5> 
         <h5>Date: <?= $row["date"] ?></h5>
         <p><?= $row["text"] ?></p>
-        <form action="update_review.php?id=<?= $row["id"] ?>">
+        <form action="update_review.php?id=<?= $row["r.id"] ?>">
             <input type="submit" value="Update Review">
         </form>
        <?php 
