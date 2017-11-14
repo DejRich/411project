@@ -21,7 +21,12 @@
     
     <br>
     <h4>Reviews:</h4>
-    
+    <!-- check if user is logged in? -->
+    <form action="insert_review.php" method="get">
+        <input type="hidden" name="bid" value=<?=$id?>>
+        <!-- add user id here -->
+        <input type="submit" value="Add review" />
+    </form>
     <?php
     $query = "SELECT r.id AS id, name, stars, date, text FROM review r, user u WHERE r.user_id = u.id AND r.business_id=\"" . $id . "\"";
     $res = query($query);
@@ -33,7 +38,7 @@
         <h5>Date: <?= $row["date"] ?></h5>
         <p><?= $row["text"] ?></p>
         <form action="update_review.php" method="get">
-            <input type=hidden name="id" value=<?= $row["id"] ?>>
+            <input type="hidden" name="id" value=<?= $row["id"] ?>>
             <input type="submit" value="Update Review">
         </form>
        <?php 

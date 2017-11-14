@@ -14,7 +14,8 @@
             <input type=hidden name="id" value=<?=$id?> >
             <input type=hidden name="bid" value=<?=$row["business_id"]?> >
             <br>
-            <input type="submit" value="update">
+            <button name="query" type="submit" value="update">Update</button>
+            <button name="query" type="submit" value="delete">Delete</button>
         </form>
         
     </body>
