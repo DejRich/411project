@@ -14,21 +14,20 @@
     <p>Address: <?= $row["address"] ?></p>
     <p>City: <?= $row["city"] ?></p>
     <p>State: <?= $row["state"] ?></p>
-    <?php
-        
-        ?>
     
     
     <br>
     <h4>Reviews:</h4>
-    <!-- check if user is logged in? -->
-    <form action="insert_review.php" method="get">
-        <input type="hidden" name="bid" value=<?=$id?>>
-        <!-- add user id here -->
-        <input type="submit" value="Add review" />
-    </form>
     <?php
-    $query = "SELECT r.id AS id, name, stars, date, text FROM review r, user u WHERE r.user_id = u.id AND r.business_id=\"" . $id . "\"";
+        if (loggedIn()){
+    ?>
+        <form action="insert_review.php?bid=<?=$id?>" method="post">
+            <?php printLoginInfo()?>
+            <input type="submit" value="Add review" />
+        </form>
+    <?php
+        }
+    $query = "SELECT r.id AS id, name, stars, date, text, email FROM review r, user u WHERE r.user_id = u.id AND r.business_id=\"" . $id . "\" ORDER by r.date DESC";
     $res = query($query);
     while($row = $res->fetch_assoc()){
         ?>
@@ -37,11 +36,17 @@
         <h5>Stars: <?= $row["stars"] ?></h5> 
         <h5>Date: <?= $row["date"] ?></h5>
         <p><?= $row["text"] ?></p>
-        <form action="update_review.php" method="get">
-            <input type="hidden" name="id" value=<?= $row["id"] ?>>
-            <input type="submit" value="Update Review">
+
+        <?php
+        if ($row['email'] != null && $_POST['email'] == $row['email']){
+        ?>
+
+        <form action="update_review.php?id=<?= $row['id']?>" method="post">
+            <?php printLoginInfo() ?>
+            <input type="submit" value="Update My Review">
         </form>
        <?php 
+        }
     }
         ?>
     </body>
