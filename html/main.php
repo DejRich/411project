@@ -5,7 +5,12 @@
   ?>
   <style>
     input[type=text] {
-      width: 50%;
+     width: 150px;
+     display: block;
+    }
+    input[type=password] {
+        width: 150px;
+        display: block;
     }
   </style>
 
@@ -19,9 +24,14 @@
     <br>
   </form>
     <hr>
+  <form action="multisearch.php" method="post">
+    <?php printLoginInfo(); ?>
+    <p> <input type="submit" value="Search for multiple dishes">
+  </form>
+    <hr>
   <form action="main.php" method="post">
     <p> Login:
-    <p> Email: <input type="text" name="email">
+    <p> Email:<input type="text" size="10" name="email">
     <p> Password: <input type="password" name="password">
     <p> <input type="submit" value="Log in">
   </form>
@@ -53,8 +63,5 @@
   </form>
 
   <?php } ?>
-
-
-
 </body>
 </html>

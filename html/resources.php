@@ -131,4 +131,20 @@ if (loggedIn()) {
     </form>
     <?php
 }
+
+
+// creates part of a sql query that generates distance (in miles) between two coordnates
+// each argument is either a numerical value or column name of a latitude or longitude
+function sqlDistance($lat1, $lon1, $lat2, $lon2) {
+    // 7918 = 2 * radius of earth in miles
+    return "7918 * ASIN(SQRT(POWER(SIN(RADIANS($lat2 - $lat1) / 2), 2) + COS(RADIANS($lat1)) * COS(RADIANS($lat2)) * POWER(SIN(RADIANS($lon2 - $lon1) / 2), 2)))";
+}
+
+ // PLEASE DON'T USE THIS AS THE USER'S ADDRESS!
+// returns a *rough* location of the user.
+function getRoughLocation() {
+    return geoip_record_by_name($_SERVER['REMOTE_ADDR']);
+}
+
+
 ?>
