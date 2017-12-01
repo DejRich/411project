@@ -27,7 +27,20 @@
     //                    AND `text` LIKE \"%" . $name . "%\"
     //            )
     //            ORDER BY dist / stars";
-    $query = "SET @p0 = '" . $loc['latitude'] ."'; SET @p1 = '". $loc['longitude'] . "'; SET @p2 = '%". $name ."%'; CALL `findNear`(@p0, @p1, @p2);";
+    $query = "
+    SELECT n.`name`, n.`stars`, n.`dist` 
+    FROM (
+        SELECT `id`, `stars`, `name`, coordDistance(". $loc['latitude'] .", ". $loc['longitude'] .", `latitude`, `longitude`)  AS `dist`
+        FROM `business`
+        WHERE coordDistance(". $loc['latitude'] .", ". $loc['longitude'] .", `latitude`, `longitude`) <= 5
+        ORDER BY dist / stars
+        LIMIT 200
+    ) n
+    WHERE EXISTS (
+        SELECT 1
+        FROM review r
+        WHERE r.`business_id` = n.`id` AND `text` LIKE '%". $name ."%'
+    )";
     echo $query; // TODO: DEMO
     $result = query($query);
     prettyPrintBusiness($result);
