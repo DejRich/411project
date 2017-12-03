@@ -6,7 +6,7 @@
     <body>
     <?php
     include 'resources.php';
-    require("phpsqlajax_dbinfo.php");
+    //require("phpsqlajax_dbinfo.php");
 
     $name = $_GET['name'];
     $query = "SELECT * FROM dish WHERE name=\"" . $name . "\"";
@@ -46,7 +46,7 @@
     echo $query; // TODO: DEMO
     $result = query($query);
     prettyPrintBusiness($result);
-    $result = query($query);
+    /*$result = query($query);
 
     header("Content-type: text/xml");
 
@@ -61,7 +61,7 @@
       $newnode->set_attribute("stars", $row['stars']);
 
     $xmlfile = $doc->dump_mem();
-    echo $xmlfile;
+    echo $xmlfile;*/
     ?>
     </body>
 </html>
