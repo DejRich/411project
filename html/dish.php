@@ -6,7 +6,6 @@
     <body>
     <?php
     include 'resources.php';
-    //require("phpsqlajax_dbinfo.php");
 
     $name = $_GET['name'];
     $query = "SELECT * FROM dish WHERE name=\"" . $name . "\"";
@@ -46,22 +45,25 @@
     echo $query; // TODO: DEMO
     $result = query($query);
     prettyPrintBusiness($result);
-    /*$result = query($query);
+    $result = query($query);
 
     header("Content-type: text/xml");
 
-    // Iterate through the rows, adding XML nodes for each
+    // Start XML file, echo parent node
+    echo '<markers>';
+
+    // Iterate through the rows, printing XML nodes for each
     while ($row = @mysql_fetch_assoc($result)){
       // Add to XML document node
-      $node = $doc->create_element("marker");
-      $newnode = $parnode->append_child($node);
+      echo '<marker ';
+      echo 'lat="' . $row['lat'] . '" ';
+      echo 'lng="' . $row['lng'] . '" ';
+      echo 'stars="' . $row['stars'] . '" ';
+      echo '/>';
+    }
 
-      $newnode->set_attribute("lat", $row['latitude']);
-      $newnode->set_attribute("long", $row['longitude']);
-      $newnode->set_attribute("stars", $row['stars']);
-
-    $xmlfile = $doc->dump_mem();
-    echo $xmlfile;*/
+    // End XML file
+    echo '</markers>';
     ?>
     </body>
 </html>
