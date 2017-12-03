@@ -16,7 +16,7 @@ function query($query) {
   if ($conn->connect_error) {
     dir("Connection failed: " . $conn->connect_error);
   }
-  return $conn->query($query);
+  return mysqli_query($conn, $query);
 }
 
 function update($query) {
@@ -25,8 +25,10 @@ function update($query) {
   if ($conn->connect_error) {
     dir("Connection failed: " . $conn->connect_error);
   }
-  if ($conn->query($query) === TRUE) {
+  $result = $conn->query($query);
+  if ($result === TRUE) {
     echo "Record updated successfully";
+    return $result;
 } else {
     echo "Error updating record: " . $conn->error;
 }
@@ -52,6 +54,7 @@ function prettyPrintBusiness($res) {
         ?>
         <h2><?= $row["name"]?> </h2>
         <p>Stars: <?= $row["stars"] ?> <p>
+        <p>Distance: <?= $row["dist"] ?> Miles<p>
         <form action="restaurant.php?id=<?= $row["id"]?>" method="post">
             <?php printLoginInfo() ?>
             <input type="submit" value="more info">

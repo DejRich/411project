@@ -20,7 +20,7 @@
         }
 
     } else {
-        $query = "SELECT * FROM business WHERE name LIKE " . $input . " LIMIT 1000";
+        $query = "SELECT id, name, stars FROM business WHERE name LIKE " . $input . " LIMIT 1000";
         $result = query($query);
         prettyPrintBusiness($result);
     }
