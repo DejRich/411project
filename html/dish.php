@@ -12,6 +12,10 @@
     $spice = query($query)->fetch_assoc()['spice'];
     $loc = getRoughLocation();
     ?>
+    <form action="createXML.php?name=<?=$name?>" method="get">
+            <input type="submit" value="Map" />
+    </form>
+
     <h1><?= $name?></h1>
     <p>Spice level: <?= $spice?>
 
@@ -56,8 +60,8 @@
     while ($row = @mysql_fetch_assoc($result)){
       // Add to XML document node
       echo '<marker ';
-      echo 'lat="' . $row['lat'] . '" ';
-      echo 'lng="' . $row['lng'] . '" ';
+      echo 'lat="' . $row['latitude'] . '" ';
+      echo 'lng="' . $row['longitude'] . '" ';
       echo 'stars="' . $row['stars'] . '" ';
       echo '/>';
     }
