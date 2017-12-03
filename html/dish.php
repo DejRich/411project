@@ -6,6 +6,8 @@
     <body>
     <?php
     include 'resources.php';
+    require("phpsqlajax_dbinfo.php");
+
     $name = $_GET['name'];
     $query = "SELECT * FROM dish WHERE name=\"" . $name . "\"";
     $spice = query($query)->fetch_assoc()['spice'];
@@ -30,7 +32,7 @@
     $query = "
     SELECT n.`id`, n.`name`, n.`stars`, n.`dist` 
     FROM (
-    SELECT `id`, `stars`, `name`, coordDistance('". $loc['latitude'] ."', '". $loc['longitude'] ."', `latitude`, `longitude`)  AS `dist`
+    SELECT `id`, `stars`, `name`, coordDistance('". $loc['latitude'] ."', '". $loc['longitude'] ."', `latitude`, `longitude`)  AS `dist`, `latitude`, `longitude`
         FROM `business`
         WHERE coordDistance('". $loc['latitude'] ."', '". $loc['longitude'] ."', `latitude`, `longitude`) <= 5
         ORDER BY dist / stars
@@ -44,6 +46,22 @@
     echo $query; // TODO: DEMO
     $result = query($query);
     prettyPrintBusiness($result);
+    $result = query($query);
+
+    header("Content-type: text/xml");
+
+    // Iterate through the rows, adding XML nodes for each
+    while ($row = @mysql_fetch_assoc($result)){
+      // Add to XML document node
+      $node = $doc->create_element("marker");
+      $newnode = $parnode->append_child($node);
+
+      $newnode->set_attribute("lat", $row['latitude']);
+      $newnode->set_attribute("long", $row['longitude']);
+      $newnode->set_attribute("stars", $row['stars']);
+
+    $xmlfile = $doc->dump_mem();
+    echo $xmlfile;
     ?>
     </body>
 </html>
